@@ -1,0 +1,49 @@
+---
+title: "Cold Boy Hours"
+author: "Margaret Butler"
+date: "11/14/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+
+library(tidyr)
+library(tidyverse)
+library(googlesheets4)
+library(broom)
+
+```
+
+```{r}
+
+sheets_deauth()
+
+x <- read_sheet("1QA_Xv9tAbKhwFdQpnVa2hTjhEdg5zAl4WY5EVanWSo0")
+
+```
+dvote dem_advantage
+```{r dem jazz}
+
+x %>% 
+  ggplot(aes(dvote, dem_adv)) +
+  geom_jitter(alpha = 0.5, height = 0.4, width = 0.4) +
+  geom_smooth(method = "lm", se = FALSE)
+
+```
+
+```{r}
+x %>% 
+  ggplot(aes(female, dvote)) +
+  geom_jitter(alpha = 0.4, height = 0.4, width = 0.4) +
+  geom_smooth(method = "glm", se = FALSE)
+
+glm_1 <- glm(data = x, dvote ~ female, family = "binomial")
+
+print(glm_1)
+
+summary(glm_1)
+
+```
+
+I no longer have a partner and have mentally tapped out
